@@ -38,4 +38,4 @@ setopt hist_ignore_all_dups
 eval $(starship init zsh)
 
 # rust bins to PATH
-export PATH="$HOME/.local/bin:$PATH:$HOME/bin:$HOME/.cargo/bin"
+export PATH="$HOME/.local/bin:$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.emacs.d/bin"
