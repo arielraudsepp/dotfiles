@@ -32,5 +32,4 @@ zplugin light zsh-users/zsh-history-substring-search
 # Steal some plugins from OMZ
 zinit wait lucid for \
       OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh \
-      OMZ::plugins/command-not-found/command-not-found.plugin.zsh \
-      OMZ::plugins/rbenv/rbenv.plugin.zsh
+      OMZ::plugins/command-not-found/command-not-found.plugin.zsh

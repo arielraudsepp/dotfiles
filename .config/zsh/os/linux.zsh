@@ -1,8 +1,6 @@
 export WINDOWS_HOST=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf | awk '{printf $1; exit}' )
 export DISPLAY=$WINDOWS_HOST":0"
 
-export AWS_REGION="ca-central-1"
-
 export EDITOR="emacs"
 export DOTNET_ROOT="/opt/dotnet"
 
@@ -17,5 +15,4 @@ export DOTNET_ROOT="/opt/dotnet"
 #   end
 # end
 
-export PATH=~/.local/bin:$PATH
 export locale=en_US.UTF-8

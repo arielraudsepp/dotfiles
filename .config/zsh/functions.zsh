@@ -3,8 +3,6 @@
 #########################
 alias ls="exa -lbh"
 
-alias rails="noglob rails"
-
 #########################
 # Functions
 #########################
@@ -28,17 +26,4 @@ clean_history() {
   strings ~/.zsh_history_bad > ~/.zsh_history
   fc -R ~/.zsh_history
   rm ~/.zsh_history_bad
-}
-#########################
-# Work functions
-#########################
-
-cdwa () {
-  cd ~/dev/tidal/application-inventory/
-}
-
-count-releases-mm () {
-  git log --tags='release-v*' --simplify-by-decoration --pretty="format:%ci %d" --since='2 weeks' \
-    | grep "tag: release" \
-    | wc -l
 }
