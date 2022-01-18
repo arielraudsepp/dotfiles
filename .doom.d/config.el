@@ -22,12 +22,12 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
- (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font Mono" :size 14.0 :weight 'semi-light))
+ (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font Mono" :size 16.0 :weight 'semi-light))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-acario-dark)
+(setq doom-theme 'doom-snazzy)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -52,5 +52,14 @@
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c g k').
 ;; This will open documentation for it, including demos of how they are used.
 ;;
-;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
+;; You can also try 'Gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
+(use-package! graphviz-dot-mode)
+
+(setq lsp-ui-doc-position 'top)
+
+;; (after! prettier-js
+;;   (add-hook 'js2-mode-hook 'prettier-js-mode)
+;;   (add-hook 'web-mode-hook 'prettier-js-mode)
+;;   (add-hook 'typescript-mode-hook 'prettier-js-mode)
+;; )

@@ -17,6 +17,10 @@
 (package! gnu-elpa-keyring-update)
 (package! parinfer-rust-mode)
 (package! elpy)
+(package! graphviz-dot-mode)
+(package! impatient-mode)
+
+
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':
