@@ -7,7 +7,7 @@ alias ls="exa -lbh"
 # Functions
 #########################
 emacs () {
-    /usr/sbin/emacs $argv &
+    /usr/local/bin/emacs $argv &
 }
 
 delete-merged () {
