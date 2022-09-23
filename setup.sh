@@ -6,9 +6,8 @@ zsh () {
   ln -s $script_dir/.zshrc ~/.zshrc
   ln -s $script_dir/.config/zsh ~/.config
 
-  script_dir=$(dirname $0 | xargs realpath)
-  ln -s $script_dir/.doom.d ~/.doom.d
-  }
+  ./emacs_setup.sh
+}
 
 
 if [ "$1" == "zsh" ]; then

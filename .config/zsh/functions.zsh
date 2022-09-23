@@ -6,9 +6,21 @@ alias ls="exa -lbh"
 #########################
 # Functions
 #########################
-emacs () {
-    /usr/local/bin/emacs $argv &
-}
+case $(uname) in
+  Linux)
+    emacs () {
+    /usr/sbin/emacs $argv &
+    }
+    ;;
+  Darwin)
+    emacs () {
+      /opt/homebrew/bin/emacs $argv &
+    }
+    ;;
+  '*')
+    echo Hi, stranger!
+    ;;
+esac
 
 delete-merged () {
   git branch --merged \
