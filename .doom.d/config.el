@@ -63,3 +63,6 @@
 ;;   (add-hook 'web-mode-hook 'prettier-js-mode)
 ;;   (add-hook 'typescript-mode-hook 'prettier-js-mode)
 ;; )
+
+(setq org-journal-file-type 'monthly
+      org-journal-file-format "%Y-%m")
