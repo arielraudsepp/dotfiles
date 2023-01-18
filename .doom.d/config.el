@@ -64,5 +64,14 @@
 ;;   (add-hook 'typescript-mode-hook 'prettier-js-mode)
 ;; )
 
+
 (setq org-journal-file-type 'monthly
       org-journal-file-format "%Y-%m")
+
+(setq org-capture-templates
+      '(("d" "Diary" entry (file+datetree "~/Dropbox/org/dev-diary.org")
+         "* %?\n From: %a"
+         :empty-lines 1)
+        ("n" "Notes" entry (file+headline "~/Dropbox/org/notes.org" "Notes")
+         "* %?\n %i\n"
+         :empty-lines 1)))
