@@ -19,6 +19,7 @@
 (package! elpy)
 (package! graphviz-dot-mode)
 (package! impatient-mode)
+(package! org-journal)
 (package! php-cs-fixer)
 (package! virtual-comment)
 (package! geben)
