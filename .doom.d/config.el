@@ -60,6 +60,7 @@
 (map! "C-c i c" #'virtual-comment-make)
 
 (setq lsp-ui-doc-position 'top)
+(setq-hook! 'php-mode-hook +format-with-lsp nil)
 
 ;; (after! prettier-js
 ;;   (add-hook 'js2-mode-hook 'prettier-js-mode)

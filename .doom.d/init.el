@@ -24,7 +24,7 @@
        ;;ido               ; the other *other* search engine...
        (ivy               ; a search engine for love and life
         +icons
-        +fuzzy
+     ;;   +fuzzy
         +prescient)
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -47,7 +47,7 @@
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        ;;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-       ;;window-select     ; visually switch windows
+       window-select     ; visually switch windows
        ;;workspaces        ; tab emulation, persistence & separate workspaces
        ;;zen               ; distraction-free coding or writing
 
@@ -55,7 +55,9 @@
        ;; (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+      (format
+       ;;+onsave
+       )  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        ;;multiple-cursors  ; editing in many places at once
@@ -154,7 +156,7 @@
        org               ; organize your plain life in plain text
        ;;perl              ; write code no one else can comprehend
        (php
-         + lsp)                               ; perl's insecure younger brother
+         +lsp)                               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        python            ; beautiful is better than ugly
@@ -172,7 +174,8 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
+       (web
+        +lsp)                                 ; the tubes
        yaml              ; JSON, but readable
 
        :email
