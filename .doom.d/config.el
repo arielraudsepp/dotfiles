@@ -54,7 +54,10 @@
 ;;
 ;; You can also try 'Gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
-(use-package! graphviz-dot-mode)
+
+(add-hook 'find-file-hook 'virtual-comment-mode)
+
+(map! "C-c i c" #'virtual-comment-make)
 
 (setq lsp-ui-doc-position 'top)
 
