@@ -72,10 +72,17 @@
 (setq org-journal-file-type 'monthly
       org-journal-file-format "%Y-%m")
 
-(setq org-capture-templates
-      '(("d" "Diary" entry (file+datetree "~/Dropbox/org/dev-diary.org")
-         "* %?\n From: %a"
-         :empty-lines 1)
-        ("n" "Notes" entry (file+headline "~/Dropbox/org/notes.org" "Notes")
-         "* %?\n %i\n"
-         :empty-lines 1)))
+(after! org
+  (setq org-capture-templates
+        '(("d" "Diary" entry (file+datetree (if ariels-work-machine
+                                                "~/Documents/dev-diary.org"
+                                                "~/Dropbox/org/dev-diary.org"
+                                                ))
+           "* %?\n From: %a"
+           :empty-lines 1)
+          ("n" "Notes" entry (file+headline (if ariels-work-machine
+                                                "~/Documents/notes.org"
+                                                "~/Dropbox/org/notes.org")
+                                            "Notes")
+           "* %?\n %i\n"
+           :empty-lines 1))))
