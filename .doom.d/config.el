@@ -31,7 +31,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Dropbox/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -74,15 +74,10 @@
 
 (after! org
   (setq org-capture-templates
-        '(("d" "Diary" entry (file+datetree (if ariels-work-machine
-                                                "~/Documents/dev-diary.org"
-                                                "~/Dropbox/org/dev-diary.org"
-                                                ))
+        '(("d" "Diary" entry (file+datetree "dev-diary.org")
            "* %?\n From: %a"
            :empty-lines 1)
-          ("n" "Notes" entry (file+headline (if ariels-work-machine
-                                                "~/Documents/notes.org"
-                                                "~/Dropbox/org/notes.org")
+          ("n" "Notes" entry (file+headline "notes.org"
                                             "Notes")
            "* %?\n %i\n"
            :empty-lines 1))))
