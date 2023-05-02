@@ -127,8 +127,8 @@
   (setq-local blinders-mode--timer (run-with-timer blinders-mode-timer-length nil 'blinders-mode--remove-blinders))
   ;; hide buffer
   (let ((before-ov (make-overlay (point-min)
-                                 (line-beginning-position 0)))
-        (after-ov (make-overlay (line-end-position 2)
+                                 (line-beginning-position -1)))
+        (after-ov (make-overlay (line-end-position 3)
                                 (point-max))))
     (blinders-mode--remove-blinders)
     (overlay-put before-ov 'category 'blinders)
