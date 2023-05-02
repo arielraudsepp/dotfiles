@@ -24,6 +24,11 @@
 (package! virtual-comment)
 (package! geben)
 
+(package! chatgpt-shell)
+(package! ob-chatgpt-shell)
+
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify

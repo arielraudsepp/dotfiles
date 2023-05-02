@@ -81,6 +81,20 @@
                                             "Notes")
            "* %?\n %i\n"
            :empty-lines 1))))
+(after! chatgpt-shell
+  (setq chatgpt-shell-openai-key ""))
+
+(after! ob-chatgpt-shell
+  (ob-chatgpt-shell-setup))
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Blinders Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;
