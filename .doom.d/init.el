@@ -94,7 +94,7 @@
        ;;ansible
        (debugger
         + lsp)                                ; FIXME stepping through code, to help you add bugs
-       ;;direnv
+       direnv
        ;; docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
@@ -124,7 +124,8 @@
        ;;csharp            ; unity, .NET, and mono shenanigans
        ;;data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
-       ;;elixir            ; erlang done right
+       (elixir             ; erlang done right
+        +lsp)                   ;
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
@@ -150,9 +151,10 @@
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       ;;nix               ; I hereby declare "nix geht mehr!"
+       nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       org               ; organize your plain life in plain text
+       (org               ; organize your plain life in plain text
+         +roam2)
        ;;perl              ; write code no one else can comprehend
        (php
          +lsp)                               ; perl's insecure younger brother
@@ -161,20 +163,22 @@
        python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        racket            ; a DSL for DSLs
+
        rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (rust
         +lsp)                                ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       ;;scheme            ; a fully conniving family of lisps
+       scheme            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       (web
-        +lsp)                                 ; the tubes
+       ;;(
+        web
+        ;;+lsp)                                 ; the tubes
        yaml              ; JSON, but readable
 
        :email

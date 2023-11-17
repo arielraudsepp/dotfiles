@@ -55,9 +55,11 @@
 ;; You can also try 'Gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+
 (add-hook 'find-file-hook 'virtual-comment-mode)
 
 (map! "C-c i c" #'virtual-comment-make)
+
 
 (setq lsp-ui-doc-position 'top)
 (setq-hook! 'php-mode-hook +format-with-lsp nil)
@@ -67,7 +69,6 @@
 ;;   (add-hook 'web-mode-hook 'prettier-js-mode)
 ;;   (add-hook 'typescript-mode-hook 'prettier-js-mode)
 ;; )
-
 
 (setq org-journal-file-type 'monthly
       org-journal-file-format "%Y-%m")
@@ -95,60 +96,17 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
-;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Blinders Mode
-;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defgroup blinders nil
-  "Put on your blinders so you can focus on one line at a time"
-  :group 'convenience)
+;; project nix build specific for running elixir-ls
+(after! lsp
+  (setq lsp-elixir-local-server-command "/nix/store/yyacccab93b7p6gh1kbca23h72kpf337-elixir-ls-0.15.1/bin/launch.sh"))
 
-;; (defface blinders-hidden-face
-;;   (list (list t (list :background (face-attribute 'default :background)
-;;                       :foreground (face-attribute 'default :background))))
-;;   "blinders-mode hidden face"
-;;   :group 'blinders)
+(after! org
+       (setq org-roam-directory (file-truename "~/org-roam"))
+       (org-roam-db-autosync-mode))
 
-(defcustom blinders-mode-timer-length 5
-  "Amount of time to wait until the blinders are removed"
-  :type 'integer
-  :group 'blinders)
-(defvar-local blinders-mode--timer nil)
+(after! racket-mode
+  (setq racket-images-inline t))
 
-(defun blinders-mode--remove-blinders ()
-  (interactive)
-  (remove-overlays (point-min) (point-max) 'category 'blinders))
-
-(defun blinders-mode--refresh-blinders ()
-  (interactive)
-  ;; deal with timers
-  (when blinders-mode--timer
-    (cancel-timer blinders-mode--timer))
-  (setq-local blinders-mode--timer (run-with-timer blinders-mode-timer-length nil 'blinders-mode--remove-blinders))
-  ;; hide buffer
-  (let ((before-ov (make-overlay (point-min)
-                                 (line-beginning-position -1)))
-        (after-ov (make-overlay (line-end-position 3)
-                                (point-max))))
-    (blinders-mode--remove-blinders)
-    (overlay-put before-ov 'category 'blinders)
-    (overlay-put before-ov 'face 'blinders-hidden-face)
-    (overlay-put after-ov 'category 'blinders)
-    (overlay-put after-ov 'face 'blinders-hidden-face)))
-
-(define-minor-mode blinders-mode
-  "Mode for showing only one line of the buffer at a time"
-  :init-value nil
-  (if blinders-mode
-      (progn
-        (defface blinders-hidden-face
-          (list (list t (list :background (face-attribute 'default :background)
-                              :foreground (face-attribute 'default :background))))
-          "blinders-mode hidden face"
-          :group 'blinders)
-        (setq-local post-command-hook (cons 'blinders-mode--refresh-blinders post-command-hook)))
-    (progn
-      (setq-local post-command-hook (delete 'blinders-mode--refresh-blinders post-command-hook))
-      (blinders-mode--remove-blinders))))
-
-(add-hook 'prog-mode-hook 'blinders-mode)
+(after! dap-mode
+  (require 'dap-cpptools))
