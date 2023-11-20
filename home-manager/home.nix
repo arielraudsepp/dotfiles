@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
-
+let
+  stdenv = pkgs.stdenv;
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "ariel";
-  home.homeDirectory = "/Users/ariel";
+  home.homeDirectory = if stdenv.isDarwin then "/Users/ariel" else "/home/ariel";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -51,11 +53,11 @@
     autocd = true;
     historySubstringSearch.enable = true;
     initExtraFirst = ''
-       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-    fi
-        if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
-      '';
+         if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+      . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+          if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
+    '';
   };
 
   programs.starship.enable = true;
