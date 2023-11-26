@@ -8,9 +8,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, nixos-wsl, ... }:
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -27,5 +31,10 @@
     in
     {
       homeConfigurations."ariel@Disthene" = makeHome "aarch64-darwin";
+      nixosConfigurations."cinnabar" = nixpkgs.lib.nixosSystem
+        {
+          system = "x86_64-linux";
+          modules = [ nixos-wsl.nixosModules.wsl ./wsl.nix ];
+        };
     };
 }
