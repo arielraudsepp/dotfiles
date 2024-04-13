@@ -31,6 +31,7 @@
     in
     {
       homeConfigurations."ariel@Disthene" = makeHome "aarch64-darwin";
+      homeConfigurations."ariel@nixos" = makeHome "x86_64-linux";
       nixosConfigurations."cinnabar" = nixpkgs.lib.nixosSystem
         {
           system = "x86_64-linux";

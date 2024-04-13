@@ -8,7 +8,7 @@ with lib; {
       wslConf.automount.root = "/mnt";
       defaultUser = "ariel";
       startMenuLaunchers = true;
-      nativeSystemd = true;
+      nativeSystemd = false;
     };
     nix = {
       extraOptions = ''
@@ -43,28 +43,27 @@ with lib; {
     programs.dconf.enable = true;
     environment = {
       systemPackages = with pkgs; [
+              emacs
+	      coreutils
         wsl-open
         wget
         curl
         git
         eza
         man-pages
-        man-pages-posix
+              man-pages-posix
+              (pkgs.writeScriptBin "update-system" ''
+                nix flake update ~/dotfiles/home-manager
+                sudo nixos-rebuild switch --flake ~/dotfiles/home-manager#cinnabar
+                '')
+              (pkgs.writeScriptBin "update-home" ''
+                nix flake update ~/dotfiles/home-manager
+                home-manager switch --flake ~/dotfiles/home-manager
+                '')
+              
       ];
       variables = rec {
         BROWSER = "wsl-open";
-      };
-    };
-    services = {
-      postgresql = {
-        enable = true;
-        package = pkgs.postgresql_13;
-        enableTCPIP = true;
-        authentication = pkgs.lib.mkOverride 13 ''
-          local all all trust
-          host all all 127.0.0.1/32 trust
-          host all all ::1/128 trust
-        '';
       };
     };
     system.stateVersion = "23.11";

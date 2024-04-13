@@ -21,7 +21,6 @@ in
   # environment.
   home.packages = with pkgs; [
     nixpkgs-fmt
-    rnix-lsp
     gnupg
     openssh
     graphviz
@@ -49,7 +48,7 @@ in
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     autocd = true;
     historySubstringSearch.enable = true;
     initExtraFirst = ''
