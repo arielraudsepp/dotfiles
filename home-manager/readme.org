@@ -3,4 +3,4 @@
 * Updating NixOS System
 run 'update-system'
 * Updating Home Manager
-run 'update-hom'
+run 'update-home'

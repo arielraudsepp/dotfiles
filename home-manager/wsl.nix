@@ -39,6 +39,9 @@ with lib; {
       #   ssh-add = "ssh-add.exe";
         ls = "eza -la";
       };
+      loginShellInit = ''
+        export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+        '';
     };
     programs.dconf.enable = true;
     environment = {

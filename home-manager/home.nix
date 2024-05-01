@@ -20,13 +20,19 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    nixpkgs-fmt
+    nixfmt-classic
     gnupg
     openssh
     graphviz
     nodejs
     bottom
     git
+    ripgrep
+    (pkgs.writeScriptBin "update-home" ''
+                nix flake update ~/dotfiles/home-manager
+                home-manager switch --flake ~/dotfiles/home-manager
+                '')
+    
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
