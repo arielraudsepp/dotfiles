@@ -28,6 +28,9 @@ in
     bottom
     git
     ripgrep
+    fd
+    coreutils
+    clang
     (pkgs.writeScriptBin "update-home" ''
                 nix flake update ~/dotfiles/home-manager
                 home-manager switch --flake ~/dotfiles/home-manager
