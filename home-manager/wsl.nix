@@ -44,6 +44,7 @@ with lib; {
         '';
     };
     programs.dconf.enable = true;
+    virtualisation.docker.enable = true;
     environment = {
       systemPackages = with pkgs; [
         emacs29
