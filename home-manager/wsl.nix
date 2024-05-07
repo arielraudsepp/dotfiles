@@ -46,7 +46,7 @@ with lib; {
     programs.dconf.enable = true;
     environment = {
       systemPackages = with pkgs; [
-              emacs
+        emacs29
 	      coreutils
         wsl-open
         wget
