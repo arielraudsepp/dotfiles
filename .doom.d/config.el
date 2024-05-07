@@ -60,9 +60,13 @@
 
 (map! "C-c i c" #'virtual-comment-make)
 
-
 (setq lsp-ui-doc-position 'top)
+
 (setq-hook! 'php-mode-hook +format-with-lsp nil)
+
+;; to satisfy co-pilot mode-specific indentation offset for elisp
+(setq-hook! 'emacs-lisp-mode-hook
+            indent-tabs-mode nil)
 
 ;; (after! prettier-js
 ;;   (add-hook 'js2-mode-hook 'prettier-js-mode)
@@ -82,6 +86,7 @@
                                             "Notes")
            "* %?\n %i\n"
            :empty-lines 1))))
+
 (after! chatgpt-shell
   (setq chatgpt-shell-openai-key ""))
 
