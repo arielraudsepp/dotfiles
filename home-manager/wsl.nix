@@ -54,16 +54,18 @@ with lib; {
         git
         eza
         man-pages
-              man-pages-posix
-              (pkgs.writeScriptBin "update-system" ''
+        man-pages-posix
+        hunspell
+        hunspellDicts.en_CA
+        (pkgs.writeScriptBin "update-system" ''
                 nix flake update ~/dotfiles/home-manager
                 sudo nixos-rebuild switch --flake ~/dotfiles/home-manager#cinnabar
                 '')
-              (pkgs.writeScriptBin "update-home" ''
+        (pkgs.writeScriptBin "update-home" ''
                 nix flake update ~/dotfiles/home-manager
                 home-manager switch --flake ~/dotfiles/home-manager
                 '')
-              
+
       ];
       variables = rec {
         BROWSER = "wsl-open";
