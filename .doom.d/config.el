@@ -64,10 +64,6 @@
 
 (setq-hook! 'php-mode-hook +format-with-lsp nil)
 
-;; to satisfy co-pilot mode-specific indentation offset for elisp
-(setq-hook! 'emacs-lisp-mode-hook
-            indent-tabs-mode nil)
-
 ;; (after! prettier-js
 ;;   (add-hook 'js2-mode-hook 'prettier-js-mode)
 ;;   (add-hook 'web-mode-hook 'prettier-js-mode)
@@ -101,6 +97,9 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(after! copilot
+ (setq copilot-indent-offset-warning-disable t))
 
 ;; project nix build specific for running elixir-ls
 (after! lsp
