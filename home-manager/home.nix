@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
-let
-  stdenv = pkgs.stdenv;
-in
-{
+let stdenv = pkgs.stdenv;
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "ariel";
-  home.homeDirectory = if stdenv.isDarwin then "/Users/ariel" else "/home/ariel";
+  home.homeDirectory =
+    if stdenv.isDarwin then "/Users/ariel" else "/home/ariel";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -31,11 +30,11 @@ in
     fd
     coreutils
     clang
+    nodePackages.prettier
     (pkgs.writeScriptBin "update-home" ''
-                nix flake update ~/dotfiles/home-manager
-                home-manager switch --flake ~/dotfiles/home-manager
-                '')
-    
+      nix flake update ~/dotfiles/home-manager
+      home-manager switch --flake ~/dotfiles/home-manager
+    '')
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
