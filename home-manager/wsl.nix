@@ -13,12 +13,29 @@ with lib; {
     nix = {
       extraOptions = ''
         experimental-features = nix-command flakes
-        '';
+      '';
       settings = {
         trusted-users = [ "root" "ariel" ];
         auto-optimise-store = true;
       };
     };
+    services = {
+      postgresql = {
+        enable = true;
+        enableTCPIP = true;
+        package = pkgs.postgresql_16;
+        authentication = pkgs.lib.mkOverride 16 ''
+          #type database  DBuser  orgin-address   auth-method
+          local all       all                     trust
+          host  all       all     127.0.0.1/32    trust
+          host  all       all     ::1/128         trust
+        '';
+      };
+      # Use "" to start a standard redis instance
+      redis.servers."".enable = true;
+      redis.servers."".openFirewall = true;
+    };
+
     users.users.ariel = {
       isNormalUser = true;
       shell = pkgs.zsh;
