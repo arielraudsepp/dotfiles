@@ -21,11 +21,19 @@
         "systems": "systems"
       },
       "locked": {
+<<<<<<< Updated upstream
         "lastModified": 1710146030,
         "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
         "owner": "numtide",
         "repo": "flake-utils",
         "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+=======
+        "lastModified": 1705309234,
+        "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "1ef2e671c3b0c19053962c07dbda38332dcebf26",
+>>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
@@ -41,11 +49,19 @@
         ]
       },
       "locked": {
+<<<<<<< Updated upstream
         "lastModified": 1715486357,
         "narHash": "sha256-4pRuzsHZOW5W4CsXI9uhKtiJeQSUoe1d2M9mWU98HC4=",
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "44677a1c96810a8e8c4ffaeaad10c842402647c1",
+=======
+        "lastModified": 1707919853,
+        "narHash": "sha256-qxmBGDzutuJ/tsX4gp+Mr7fjxOZBbeT9ixhS5o4iFOw=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "043ba285c6dc20f36441d48525402bcb9743c498",
+>>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
@@ -63,11 +79,19 @@
         ]
       },
       "locked": {
+<<<<<<< Updated upstream
         "lastModified": 1715612368,
         "narHash": "sha256-rpXM1gGZY1KacCvKLx5Hnzxp+iLRVVVrt70KiMKvalo=",
         "owner": "nix-community",
         "repo": "NixOS-WSL",
         "rev": "0802ef2739396a18d56c2fd088b95006671f6f48",
+=======
+        "lastModified": 1707761607,
+        "narHash": "sha256-OKNdTgnyhZpmqdgba8s78/QvowyTIMJDp0iLxv570bU=",
+        "owner": "nix-community",
+        "repo": "NixOS-WSL",
+        "rev": "c8ddba82ca6b791be1acaae4b336ff8e857ec70b",
+>>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
@@ -78,11 +102,19 @@
     },
     "nixpkgs": {
       "locked": {
+<<<<<<< Updated upstream
         "lastModified": 1715534503,
         "narHash": "sha256-5ZSVkFadZbFP1THataCaSf0JH2cAH3S29hU9rrxTEqk=",
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "2057814051972fa1453ddfb0d98badbea9b83c06",
+=======
+        "lastModified": 1707689078,
+        "narHash": "sha256-UUGmRa84ZJHpGZ1WZEBEUOzaPOWG8LZ0yPg1pdDF/yM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f9d39fb9aff0efee4a3d5f4a6d7c17701d38a1d8",
+>>>>>>> Stashed changes
         "type": "github"
       },
       "original": {

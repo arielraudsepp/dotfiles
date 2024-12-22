@@ -27,8 +27,8 @@
 (package! chatgpt-shell)
 (package! ob-chatgpt-shell)
 
-(package! copilot
-  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+;;(package! copilot
+  ;;:recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 
 (package! blinders-mode
   :recipe (:host github :repo "arielraudsepp/blinders-mode"))

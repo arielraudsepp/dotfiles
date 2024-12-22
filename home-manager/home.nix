@@ -26,6 +26,7 @@ in {
     nodejs
     bottom
     git
+<<<<<<< Updated upstream
     ripgrep
     fd
     coreutils
@@ -35,6 +36,10 @@ in {
       nix flake update ~/dotfiles/home-manager
       home-manager switch --flake ~/dotfiles/home-manager
     '')
+=======
+    rustup
+    omnisharp-roslyn
+>>>>>>> Stashed changes
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
