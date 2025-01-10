@@ -39,3 +39,12 @@ eval $(starship init zsh)
 
 # rust bins to PATH
 export PATH="$HOME/.local/bin:$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.emacs.d/bin"
+
+# hook for direnv; leave at end of file
+eval "$(direnv hook zsh)"
+
+ # Nix
+ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+ fi
+ # End Nix
