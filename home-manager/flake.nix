@@ -18,24 +18,19 @@
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-      makeHome = system: home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
+      makeHome = system:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          extraSpecialArgs = { inherit system; };
+          modules = [ ./home.nix ];
         };
-        extraSpecialArgs = {
-          inherit system;
-        };
-        modules = [ ./home.nix ];
-      };
 
-    in
-    {
-      homeConfigurations."ariel@Disthene" = makeHome "aarch64-darwin";
+    in {
+      homeConfigurations."ariel" = makeHome "aarch64-darwin";
       homeConfigurations."ariel@nixos" = makeHome "x86_64-linux";
-      nixosConfigurations."cinnabar" = nixpkgs.lib.nixosSystem
-        {
-          system = "x86_64-linux";
-          modules = [ nixos-wsl.nixosModules.wsl ./wsl.nix ];
-        };
+      nixosConfigurations."cinnabar" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ nixos-wsl.nixosModules.wsl ./wsl.nix ];
+      };
     };
 }
