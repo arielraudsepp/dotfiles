@@ -26,20 +26,18 @@ in {
     nodejs
     bottom
     git
-<<<<<<< Updated upstream
     ripgrep
     fd
     coreutils
     clang
     nodePackages.prettier
-    (pkgs.writeScriptBin "update-home" ''
-      nix flake update ~/dotfiles/home-manager
-      home-manager switch --flake ~/dotfiles/home-manager
-    '')
-=======
     rustup
     omnisharp-roslyn
->>>>>>> Stashed changes
+    (pkgs.writeScriptBin "update-home" ''
+      cd ~/dotfiles/home-manager
+      nix flake update
+      home-manager switch
+    '')
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
