@@ -33,6 +33,7 @@ in {
     nodePackages.prettier
     rustup
     omnisharp-roslyn
+    emacs
     (pkgs.writeScriptBin "update-home" ''
       cd ~/dotfiles/home-manager
       nix flake update
