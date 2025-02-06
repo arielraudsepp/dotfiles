@@ -9,6 +9,7 @@ with lib; {
       defaultUser = "ariel";
       startMenuLaunchers = true;
       nativeSystemd = false;
+      usbip.enable = true;
     };
     nix = {
       extraOptions = ''
@@ -52,8 +53,8 @@ with lib; {
     programs.zsh = {
       enable = true;
       shellAliases = {
-        #   ssh = "ssh.exe";
-        #   ssh-add = "ssh-add.exe";
+        ssh = "ssh.exe";
+        ssh-add = "ssh-add.exe";
         ls = "eza -la";
       };
       loginShellInit = ''
@@ -72,8 +73,11 @@ with lib; {
         eza
         man-pages
         man-pages-posix
+        xdg-utils
+        usbutils
         hunspell
         hunspellDicts.en_CA
+        python3
         (pkgs.writeScriptBin "update-system" ''
           nix flake update ~/dotfiles/home-manager
           sudo nixos-rebuild switch --flake ~/dotfiles/home-manager#cinnabar
