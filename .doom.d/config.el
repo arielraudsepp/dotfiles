@@ -22,7 +22,7 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
- (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font Mono" :size 16.0 :weight 'semi-light))
+(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font Mono" :size 16.0 :weight 'semi-light))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -99,18 +99,17 @@
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
 (after! copilot
- (setq copilot-indent-offset-warning-disable t))
+  (setq copilot-indent-offset-warning-disable t))
 
 ;; project nix build specific for running elixir-ls
 (after! lsp
   (setq lsp-elixir-local-server-command "/nix/store/yyacccab93b7p6gh1kbca23h72kpf337-elixir-ls-0.15.1/bin/launch.sh"))
 
 (after! org
-       (setq org-roam-directory (file-truename "~/org-roam"))
-       (org-roam-db-autosync-mode))
-
-(after! racket-mode
-  (setq racket-images-inline t))
+  (setq org-roam-directory (file-truename "~/org-roam"))
+  (org-roam-db-autosync-mode))
 
 (after! dap-mode
   (require 'dap-cpptools))
+(after! racket-mode
+  (add-hook racket-mode #'racket-smart-open-bracket-mode))

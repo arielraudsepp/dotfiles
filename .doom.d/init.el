@@ -24,7 +24,7 @@
        ;;ido               ; the other *other* search engine...
        (ivy               ; a search engine for love and life
         +icons
-     ;;   +fuzzy
+        ;;   +fuzzy
         +prescient)
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -55,9 +55,9 @@
        ;; (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-      (format
-       +onsave
-       )  ; automated prettiness
+       (format
+        +onsave
+        )  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        ;;multiple-cursors  ; editing in many places at once
@@ -141,7 +141,7 @@
        ;;idris             ;
        ;;json              ; At least it ain't XML
        (java
-             +lsp) ; the poster child for carpal tunnel syndrome
+        +lsp) ; the poster child for carpal tunnel syndrome
        (javascript
         +lsp)                                ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
@@ -156,16 +156,17 @@
        nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org               ; organize your plain life in plain text
-         +roam2)
+        +roam2)
        ;;perl              ; write code no one else can comprehend
        (php
-         +lsp)                               ; perl's insecure younger brother
+        +lsp)                               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
-       racket            ; a DSL for DSLs
-
+       (racket
+        +lsp                ; a DSL for DSLs
+        +xp)
        rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
@@ -179,8 +180,8 @@
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        ;;(
-        web
-        ;;+lsp)                                 ; the tubes
+       web
+       ;;+lsp)                                 ; the tubes
        yaml              ; JSON, but readable
 
        :email
