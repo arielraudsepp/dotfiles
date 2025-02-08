@@ -34,6 +34,9 @@ in {
     rustup
     omnisharp-roslyn
     emacs
+    tetex
+    gnumake
+    emacsPackages.pdf-tools
     (pkgs.writeScriptBin "update-home" ''
       cd ~/dotfiles/home-manager
       nix flake update
