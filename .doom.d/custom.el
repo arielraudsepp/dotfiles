@@ -24,3 +24,4 @@
  )
 (put 'narrow-to-region 'disabled nil)
 (put 'customize-group 'disabled nil)
+(put 'projectile-ripgrep 'disabled nil)

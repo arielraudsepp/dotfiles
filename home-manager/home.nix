@@ -15,7 +15,7 @@ in {
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
-
+  home.enableNixpkgsReleaseCheck = false;
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -37,6 +37,7 @@ in {
     tetex
     gnumake
     emacsPackages.pdf-tools
+    unzip
     (pkgs.writeScriptBin "update-home" ''
       cd ~/dotfiles/home-manager
       nix flake update
