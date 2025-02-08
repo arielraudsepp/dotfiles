@@ -61,6 +61,7 @@
 (map! "C-c i c" #'virtual-comment-make)
 
 (setq lsp-ui-doc-position 'top)
+(setq lsp-eslint-enable 't)
 
 (setq-hook! 'php-mode-hook +format-with-lsp nil)
 
@@ -109,7 +110,12 @@
   (setq org-roam-directory (file-truename "~/org-roam"))
   (org-roam-db-autosync-mode))
 
+(after! racket-mode
+  (setq racket-images-inline t)
+  (add-hook racket-mode #'racket-smart-open-bracket-mode))
+
 (after! dap-mode
   (require 'dap-cpptools))
-(after! racket-mode
-  (add-hook racket-mode #'racket-smart-open-bracket-mode))
+
+(after! pdf-tools
+  (setq pdf-tools-installer-os "nixos"))
