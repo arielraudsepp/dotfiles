@@ -43,11 +43,14 @@ with lib; {
       extraGroups = [ "wheel" "docker" ];
     };
     time.timeZone = "America/Vancouver";
-    fonts.fontconfig = {
-      enable = true;
-      localConf = ''
-        <dir>/mnt/c/Windows/Fonts</dir>
-      '';
+    fonts = {
+      fontconfig = {
+        enable = true;
+        localConf = ''
+          <dir>/mnt/c/Windows/Fonts</dir>
+        '';
+      };
+      packages = with pkgs; [ powerline-fonts nerd-fonts.caskaydia-mono ];
     };
     i18n.defaultLocale = "en_CA.UTF-8";
     programs.zsh = {
@@ -58,7 +61,9 @@ with lib; {
         ls = "eza -la";
       };
       loginShellInit = ''
-        export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+        export WINDOWS_HOST=$(ip route | grep default | awk '{print $3; exit;}')
+        export DISPLAY=$WINDOWS_HOST:0
+
       '';
     };
     programs.dconf.enable = true;
