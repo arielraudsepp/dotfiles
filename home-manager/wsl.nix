@@ -83,15 +83,11 @@ with lib; {
         hunspell
         hunspellDicts.en_CA
         python3
+        home-manager
         (pkgs.writeScriptBin "update-system" ''
-          nix flake update ~/dotfiles/home-manager
+          nix flake update --flake ~/dotfiles/home-manager
           sudo nixos-rebuild switch --flake ~/dotfiles/home-manager#cinnabar
         '')
-        (pkgs.writeScriptBin "update-home" ''
-          nix flake update ~/dotfiles/home-manager
-          home-manager switch --flake ~/dotfiles/home-manager
-        '')
-
       ];
       variables = rec { BROWSER = "wsl-open"; };
     };

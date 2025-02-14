@@ -40,7 +40,7 @@ in {
     unzip
     (pkgs.writeScriptBin "update-home" ''
       cd ~/dotfiles/home-manager
-      nix flake update
+      nix flake update --flake .
       home-manager switch
     '')
 
@@ -61,6 +61,8 @@ in {
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+
+  home.shellAliases = { emacs = "emacs &"; };
 
   programs.zsh = {
     enable = true;
