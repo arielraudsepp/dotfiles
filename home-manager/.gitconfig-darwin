@@ -1,0 +1,13 @@
+[core]
+	autocrlf = input
+[user]
+	name = Ariel Raudsepp
+	email = ariel.raudsepp@gmail.com
+[color]
+	ui = true
+[core]
+	editor = emacs
+[pull]
+	rebase = true
+[github]
+	user = arielraudsepp

@@ -10,3 +10,5 @@
 	sshCommand = /mnt/c/Windows/System32/OpenSSH/ssh.exe
 [pull]
 	rebase = true
+[github]
+	user = arielraudsepp
