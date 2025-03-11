@@ -8,7 +8,6 @@ with lib; {
       wslConf.automount.root = "/mnt";
       defaultUser = "ariel";
       startMenuLaunchers = true;
-      nativeSystemd = false;
       usbip.enable = true;
     };
     nix = {
@@ -69,7 +68,7 @@ with lib; {
     programs.dconf.enable = true;
     environment = {
       systemPackages = with pkgs; [
-        emacs29
+        emacs30
         coreutils
         wsl-open
         wget
