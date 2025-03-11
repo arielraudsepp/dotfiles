@@ -38,6 +38,9 @@
 (package! git-sync-mode
   :recipe (:host github :repo "justinbarclay/git-sync-mode"))
 
+(package! 1password.el
+  :recipe (:host github :repo "justinbarclay/1password.el"))
+
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':
