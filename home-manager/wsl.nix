@@ -91,5 +91,6 @@ with lib; {
       variables = rec { BROWSER = "wsl-open"; };
     };
     system.stateVersion = "23.11";
+    virtualisation.docker.enable = true;
   };
 }

@@ -87,7 +87,12 @@ in {
   home.file = {
     ".gitconfig".source =
       if stdenv.isDarwin then ./.gitconfig-darwin else ./.gitconfig-wsl;
-
+    ".npmrc" = {
+      executable = false;
+      text = ''
+        prefix = ~/.npm-packages
+      '';
+    };
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -98,6 +103,7 @@ in {
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
   };
 
   # You can also manage environment variables but you will have to manually
@@ -116,4 +122,5 @@ in {
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
 }
