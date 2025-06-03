@@ -21,8 +21,10 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-
-(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font Mono" :size 16.0 :weight 'semi-light))
+(let ((font-name (if (eq system-type 'darwin)
+                     "CaskaydiaCove Nerd Font Mono"
+                   "CaskaydiaMono Nerd Font Mono")))
+  (setq doom-font (font-spec :family font-name :size 16.0 :weight 'semi-light)))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -128,5 +130,5 @@
 (after! gptel
   (setq gptel-model 'gemini-2.5-flash-preview-04-17
         gptel-backend (gptel-make-gemini "Gemini"
-                        :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
-                        :stream t)))
+                                         :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
+                                         :stream t)))
