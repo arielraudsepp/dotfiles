@@ -106,9 +106,9 @@
 (after! lsp
   (setq lsp-elixir-local-server-command "/nix/store/yyacccab93b7p6gh1kbca23h72kpf337-elixir-ls-0.15.1/bin/launch.sh"))
 
-(after! org
-  (setq org-roam-directory (file-truename "~/org-roam"))
-  (org-roam-db-autosync-mode))
+;; (after! org
+;;   (setq org-roam-directory (file-truename "~/org-roam"))
+;;   (org-roam-db-autosync-mode))
 
 (after! racket-mode
   (setq racket-images-inline t)
@@ -120,5 +120,13 @@
 (after! pdf-tools
   (setq pdf-tools-installer-os "nixos"))
 
-(after! 1password.el
+(use-package! 1password
+  :defer 1
+  :init
   (1password-enable-auth-source))
+
+(after! gptel
+  (setq gptel-model 'gemini-2.5-flash-preview-04-17
+        gptel-backend (gptel-make-gemini "Gemini"
+                        :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
+                        :stream t)))
