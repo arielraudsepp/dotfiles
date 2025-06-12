@@ -130,5 +130,15 @@
 (after! gptel
   (setq gptel-model 'gemini-2.5-flash-preview-04-17
         gptel-backend (gptel-make-gemini "Gemini"
-                                         :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
-                                         :stream t)))
+                        :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
+                        :stream t)))
+
+(use-package! aidermacs
+  :bind (("C-c C-a" . aidermacs-transient-menu))
+  :hook (aidermacs-before-run-backend .
+                                      (lambda ()
+                                        (setenv "GEMINI_API_KEY" (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private"))))))
+  :custom
+  (aidermacs-auto-commits t)
+  (aidermacs-use-architect-mode t)
+  (aidermacs-default-model "gemini/gemini-2.5-flash-preview-04-17"))

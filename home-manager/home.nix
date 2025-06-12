@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let stdenv = pkgs.stdenv;
 in {
   # Home Manager needs a bit of information about you and the paths it should
@@ -34,10 +34,12 @@ in {
     rustup
     omnisharp-roslyn
     emacs
+    cmake
     tetex
     gnumake
     emacsPackages.pdf-tools
     unzip
+    aider-chat
     (pkgs.writeScriptBin "update-home" ''
       cd ~/dotfiles/home-manager
       nix flake update --flake .
@@ -69,7 +71,7 @@ in {
     autosuggestion.enable = true;
     autocd = true;
     historySubstringSearch.enable = true;
-    initExtraFirst = ''
+    initContent = lib.mkBefore ''
          if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
       . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
