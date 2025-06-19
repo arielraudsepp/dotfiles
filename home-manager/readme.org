@@ -1,6 +1,25 @@
 #+title: Readme
-
 * Updating NixOS System
-run 'update-system'
+#+begin_src bash
+update-system
+#+end_src
+
 * Updating Home Manager
-run 'update-home'
+#+begin_src bash
+update-home
+#+end_src
+
+
+* Other useful Commands
+** Update Home Manager
+download a newer version of Home Manager that is compatible with the latest Nixpkgs
+
+#+begin_src bash
+nix-channel --update
+#+end_src
+
+then, rebuild configuration with the updated version of Home Manager
+
+#+begin_src bash
+home-manager switch
+#+end_src
