@@ -12,3 +12,5 @@
 	rebase = true
 [github]
 	user = arielraudsepp
+[github.api.github.students.cs.ubc.ca]
+    user = araud01

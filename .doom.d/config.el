@@ -125,13 +125,24 @@
 (use-package! 1password
   :defer 1
   :init
-  (1password-enable-auth-source))
+  (1password-enable-auth-source)
+  :custom
+  (1password-executable (if (executable-find "op.exe")
+                            "op.exe"
+                          "op")))
 
 (after! gptel
   (setq gptel-model 'gemini-2.5-flash-preview-04-17
         gptel-backend (gptel-make-gemini "Gemini"
-                        :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
-                        :stream t)))
+                                         :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
+                                         :stream t)))
+
+(after! magit
+  (push '("github.students.cs.ubc.ca"
+          "api.github.students.cs.ubc.ca"
+          "students.cs.ubc.ca"
+          forge-github-repository)
+        forge-alist))
 
 (use-package! aidermacs
   :bind (("C-c C-a" . aidermacs-transient-menu))
