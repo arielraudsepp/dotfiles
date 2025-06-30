@@ -23,8 +23,6 @@
 (package! php-cs-fixer)
 (package! virtual-comment)
 (package! geben)
-
-(package! chatgpt-shell)
 (package! ob-chatgpt-shell)
 (package! org-noter)
 ;;(package! pdf-tools :built-in 'prefer)
@@ -40,8 +38,6 @@
 
 (package! 1password
   :recipe (:host github :repo "justinbarclay/1password.el"))
-
-(package! gptel :recipe (:nonrecursive t))
 
 (package! aidermacs)
 

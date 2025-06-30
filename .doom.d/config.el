@@ -59,19 +59,12 @@
 
 
 (add-hook 'find-file-hook 'virtual-comment-mode)
-
 (map! "C-c i c" #'virtual-comment-make)
 
 (setq lsp-ui-doc-position 'top)
 (setq lsp-eslint-enable 't)
 
 (setq-hook! 'php-mode-hook +format-with-lsp nil)
-
-;; (after! prettier-js
-;;   (add-hook 'js2-mode-hook 'prettier-js-mode)
-;;   (add-hook 'web-mode-hook 'prettier-js-mode)
-;;   (add-hook 'typescript-mode-hook 'prettier-js-mode)
-;; )
 
 (setq org-journal-file-type 'monthly
       org-journal-file-format "%Y-%m")
@@ -86,13 +79,6 @@
            "* %?\n %i\n"
            :empty-lines 1))))
 
-(after! chatgpt-shell
-  (setq chatgpt-shell-openai-key ""))
-
-(after! ob-chatgpt-shell
-  (ob-chatgpt-shell-setup))
-
-;; accept completion from copilot and fallback to company
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
@@ -103,18 +89,6 @@
 
 (after! copilot
   (setq copilot-indent-offset-warning-disable t))
-
-;; project nix build specific for running elixir-ls
-(after! lsp
-  (setq lsp-elixir-local-server-command "/nix/store/yyacccab93b7p6gh1kbca23h72kpf337-elixir-ls-0.15.1/bin/launch.sh"))
-
-;; (after! org
-;;   (setq org-roam-directory (file-truename "~/org-roam"))
-;;   (org-roam-db-autosync-mode))
-
-(after! racket-mode
-  (setq racket-images-inline t)
-  (add-hook racket-mode #'racket-smart-open-bracket-mode))
 
 (after! dap-mode
   (require 'dap-cpptools))
@@ -131,12 +105,6 @@
                             "op.exe"
                           "op")))
 
-(after! gptel
-  (setq gptel-model 'gemini-2.5-flash-preview-04-17
-        gptel-backend (gptel-make-gemini "Gemini"
-                                         :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
-                                         :stream t)))
-
 (after! magit
   (push '("github.students.cs.ubc.ca"
           "api.github.students.cs.ubc.ca"
@@ -144,7 +112,14 @@
           forge-github-repository)
         forge-alist))
 
+(after! gptel
+  (setq gptel-model 'gemini-2.5-flash-preview-04-17
+        gptel-backend (gptel-make-gemini "Gemini"
+                        :key (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private" )))
+                        :stream t)))
+
 (use-package! aidermacs
+  :commands (aidermacs-transient-menu)
   :bind (("C-c C-a" . aidermacs-transient-menu))
   :hook (aidermacs-before-run-backend .
                                       (lambda ()
@@ -152,4 +127,5 @@
   :custom
   (aidermacs-auto-commits t)
   (aidermacs-use-architect-mode t)
+  (aidermacs-backend 'comint)
   (aidermacs-default-model "gemini/gemini-2.5-flash-preview-04-17"))
