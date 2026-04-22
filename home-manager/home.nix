@@ -19,7 +19,7 @@ in {
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    nixfmt-classic
+    nixfmt
     gnupg
     openssh
     graphviz
@@ -30,7 +30,7 @@ in {
     fd
     coreutils
     clang
-    nodePackages.prettier
+    prettier
     rustup
     omnisharp-roslyn
     emacs
@@ -118,8 +118,11 @@ in {
   #  /etc/profiles/per-user/ariel/etc/profile.d/hm-session-vars.sh
   #
   # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    # EDITOR = "emacs";
+  home = {
+    sessionVariables = {
+      # EDITOR = "emacs";
+    };
+    sessionPath = [ "$HOME/.emacs.d/bin" ];
   };
 
   # Let Home Manager install and manage itself.
