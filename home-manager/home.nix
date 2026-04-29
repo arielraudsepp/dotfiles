@@ -33,13 +33,13 @@ in {
     prettier
     rustup
     omnisharp-roslyn
-    emacs
     cmake
     tetex
     gnumake
     emacsPackages.pdf-tools
     unzip
     aider-chat
+    gnupg
     (pkgs.writeScriptBin "update-home" ''
       cd ~/dotfiles/home-manager
       nix flake update --flake .
@@ -83,6 +83,12 @@ in {
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs30;
+    extraPackages = epkgs: [ epkgs.vterm ];
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
