@@ -123,9 +123,21 @@
   :bind (("C-c C-a" . aidermacs-transient-menu))
   :hook (aidermacs-before-run-backend .
                                       (lambda ()
-                                        (setenv "GEMINI_API_KEY" (string-trim (aio-wait-for (1password--read "Gemini" "credential" "private"))))))
+                                        (setenv "GEMINI_API_KEY"
+                                                (string-trim (aio-wait-for
+                                                              (1password--read "Gemini" "credential" "private"))))))
   :custom
   (aidermacs-auto-commits t)
-  (aidermacs-use-architect-mode t)
+  (aidermacs-default-chat-mode 'architect)
   (aidermacs-backend 'comint)
-  (aidermacs-default-model "gemini/gemini-2.5-flash-preview-04-17"))
+  (aidermacs-default-model "gemini/gemini-2.5-flash-preview-05-20"))
+
+
+
+(after! org
+  (use-package! org-gcal
+    :config
+    (setq org-gcal-client-id (string-trim (aio-wait-for (1password--read "kfqjtb6t7p6vyvb22aftabk4ye" "username" "private")))
+          org-gcal-client-secret (string-trim (aio-wait-for (1password--read "kfqjtb6t7p6vyvb22aftabk4ye" "username" "private")))
+          org-gcal-fetch-file-alist '(("ariel.raudsepp@gmail.com" . "~/org/calendar.org"))
+          plstore-cache-passphrase-for-symmetric-encryption 't)))

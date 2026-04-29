@@ -1,3 +1,4 @@
 /home-manager/result
 /home-manager/.DS_Store
 flycheck_config.el
+.aider*
