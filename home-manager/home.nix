@@ -128,7 +128,7 @@ in {
     sessionVariables = {
       # EDITOR = "emacs";
     };
-    sessionPath = [ "$HOME/.emacs.d/bin" ];
+    sessionPath = [ "$HOME/.config/emacs/bin" ];
   };
 
   # Let Home Manager install and manage itself.
