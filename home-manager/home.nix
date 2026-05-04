@@ -1,11 +1,17 @@
-{ config, pkgs, lib, ... }:
-let stdenv = pkgs.stdenv;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  stdenv = pkgs.stdenv;
+in
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "ariel";
-  home.homeDirectory =
-    if stdenv.isDarwin then "/Users/ariel" else "/home/ariel";
+  home.homeDirectory = if stdenv.isDarwin then "/Users/ariel" else "/home/ariel";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -38,7 +44,6 @@ in {
     gnumake
     emacsPackages.pdf-tools
     unzip
-    aider-chat
     gnupg
     (pkgs.writeScriptBin "update-home" ''
       cd ~/dotfiles/home-manager
@@ -64,7 +69,9 @@ in {
     # '')
   ];
 
-  home.shellAliases = { emacs = "emacs &"; };
+  home.shellAliases = {
+    emacs = "emacs &";
+  };
 
   programs.zsh = {
     enable = true;
@@ -93,8 +100,7 @@ in {
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".gitconfig".source =
-      if stdenv.isDarwin then ./.gitconfig-darwin else ./.gitconfig-wsl;
+    ".gitconfig".source = if stdenv.isDarwin then ./.gitconfig-darwin else ./.gitconfig-wsl;
     ".npmrc" = {
       executable = false;
       text = ''
