@@ -135,9 +135,5 @@
 
 
 (after! org
-  (use-package! org-gcal
-    :config
-    (setq org-gcal-client-id (string-trim (aio-wait-for (1password--read "kfqjtb6t7p6vyvb22aftabk4ye" "username" "private")))
-          org-gcal-client-secret (string-trim (aio-wait-for (1password--read "kfqjtb6t7p6vyvb22aftabk4ye" "username" "private")))
-          org-gcal-fetch-file-alist '(("ariel.raudsepp@gmail.com" . "~/org/calendar.org"))
-          plstore-cache-passphrase-for-symmetric-encryption 't)))
+  (setq org-roam-directory (file-truename "~/org-roam"))
+  (org-roam-db-autosync-mode))
