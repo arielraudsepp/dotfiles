@@ -23,8 +23,8 @@ with lib; {
       postgresql = {
         enable = true;
         enableTCPIP = true;
-        package = pkgs.postgresql_16;
-        authentication = pkgs.lib.mkOverride 16 ''
+        package = pkgs.postgresql_18;
+        authentication = pkgs.lib.mkOverride 18 ''
           #type database  DBuser  orgin-address   auth-method
           local all       all                     trust
           host  all       all     127.0.0.1/32    trust
