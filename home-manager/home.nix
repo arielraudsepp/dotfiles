@@ -11,7 +11,7 @@ in
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "ariel";
-  home.homeDirectory = if stdenv.isDarwin then "/Users/ariel" else "/home/ariel";
+  home.homeDirectory = if stdenv.hostPlatform.isDarwin then "/Users/ariel" else "/home/ariel";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -48,7 +48,7 @@ in
     (pkgs.writeScriptBin "update-home" ''
       cd ~/dotfiles/home-manager
       nix flake update --flake .
-      home-manager switch
+      home-manager switch --flake .
     '')
 
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -100,7 +100,7 @@ in
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".gitconfig".source = if stdenv.isDarwin then ./.gitconfig-darwin else ./.gitconfig-wsl;
+    ".gitconfig".source = if stdenv.hostPlatform.isDarwin then ./.gitconfig-darwin else ./.gitconfig-wsl;
     ".npmrc" = {
       executable = false;
       text = ''
