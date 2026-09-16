@@ -39,6 +39,9 @@ in
     prettier
     rustup
     omnisharp-roslyn
+    jdk21
+    maven
+    gradle
     cmake
     tetex
     gnumake
@@ -84,6 +87,9 @@ in
       fi
           if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
     '';
+    profileExtra = lib.mkIf stdenv.hostPlatform.isDarwin ''
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    '';
   };
 
   programs.starship.enable = true;
@@ -93,7 +99,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs30;
+    package = pkgs.emacs;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
 
