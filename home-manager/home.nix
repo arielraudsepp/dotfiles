@@ -8,85 +8,79 @@ let
   stdenv = pkgs.stdenv;
 in
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "ariel";
   home.homeDirectory = if stdenv.hostPlatform.isDarwin then "/Users/ariel" else "/home/ariel";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "23.05"; # Please read the comment before changing.
+  # Do not change this value, even when updating Home Manager; check the
+  # release notes first if you ever want to bump it.
+  home.stateVersion = "23.05";
   home.enableNixpkgsReleaseCheck = false;
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = with pkgs; [
-    nixfmt
-    gnupg
-    openssh
-    graphviz
-    nodejs
-    bottom
-    git
-    ripgrep
-    fd
-    coreutils
-    clang
-    prettier
-    rustup
-    omnisharp-roslyn
-    jdk21
-    maven
-    gradle
-    cmake
-    tetex
-    gnumake
-    emacsPackages.pdf-tools
-    unzip
-    gnupg
-    (pkgs.writeScriptBin "update-home" ''
-      cd ~/dotfiles/home-manager
-      nix flake update --flake .
-      home-manager switch --flake .
-    '')
 
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-  ];
-
-  home.shellAliases = {
-    emacs = "emacs &";
-  };
+  home.packages =
+    with pkgs;
+    [
+      nixfmt
+      gnupg
+      openssh
+      graphviz
+      nodejs
+      bottom
+      ripgrep
+      fd
+      coreutils
+      clang
+      clang-tools
+      pkg-config
+      bear
+      prettier
+      rustup
+      omnisharp-roslyn
+      maven
+      gradle
+      cmake
+      tetex
+      gnumake
+      unzip
+      antigravity
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) gdb
+    ++ [
+      # Update flake inputs, then switch.
+      (writeShellApplication {
+        name = "update-home";
+        text = ''
+          nix flake update --flake ~/dotfiles/home-manager
+          home-manager switch --flake ~/dotfiles/home-manager
+        '';
+      })
+      # Switch to the current config without updating inputs.
+      (writeShellApplication {
+        name = "hms";
+        text = ''
+          home-manager switch --flake ~/dotfiles/home-manager
+        '';
+      })
+    ];
 
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
     autocd = true;
     historySubstringSearch.enable = true;
-    initContent = lib.mkBefore ''
-         if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-      . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-      fi
-          if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
-    '';
+    initContent = lib.mkMerge [
+      (lib.mkBefore ''
+        if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+          . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+        fi
+        if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+          . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+        fi
+      '')
+      ''
+        # Launch emacs in the background, passing through any arguments.
+        emacs() { command emacs "$@" &! }
+      ''
+    ];
     profileExtra = lib.mkIf stdenv.hostPlatform.isDarwin ''
       eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
@@ -100,50 +94,51 @@ in
   programs.emacs = {
     enable = true;
     package = pkgs.emacs;
-    extraPackages = epkgs: [ epkgs.vterm ];
+    extraPackages = epkgs: [
+      epkgs.vterm
+      epkgs.pdf-tools
+    ];
   };
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    ".gitconfig".source = if stdenv.hostPlatform.isDarwin then ./.gitconfig-darwin else ./.gitconfig-wsl;
-    ".npmrc" = {
-      executable = false;
-      text = ''
-        prefix = ~/.npm-packages
-      '';
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk25;
+  };
+
+  programs.git = {
+    enable = true;
+    settings = {
+      user = {
+        name = "Ariel Raudsepp";
+        email = "ariel.raudsepp@gmail.com";
+      };
+      core = {
+        autocrlf = "input";
+        editor = "emacs";
+      }
+      // lib.optionalAttrs (!stdenv.hostPlatform.isDarwin) {
+        sshCommand = "/mnt/c/Windows/System32/OpenSSH/ssh.exe";
+      };
+      color.ui = true;
+      pull.rebase = true;
+      github = {
+        user = "arielraudsepp";
+      }
+      // lib.optionalAttrs (!stdenv.hostPlatform.isDarwin) {
+        "api.github.students.cs.ubc.ca".user = "araud01";
+      };
     };
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-
   };
 
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/ariel/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
-  home = {
-    sessionVariables = {
-      # EDITOR = "emacs";
-    };
-    sessionPath = [ "$HOME/.config/emacs/bin" ];
-  };
+  home.file.".npmrc".text = ''
+    prefix = ~/.npm-packages
+  '';
+
+  home.sessionPath = [
+    "$HOME/.config/emacs/bin"
+    "$HOME/.npm-packages/bin"
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
 }

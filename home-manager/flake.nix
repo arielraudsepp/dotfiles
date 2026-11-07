@@ -16,12 +16,9 @@
 
   outputs = { nixpkgs, home-manager, nixos-wsl, ... }:
     let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
       makeHome = system:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
-          extraSpecialArgs = { inherit system; };
+          pkgs = nixpkgs.legacyPackages.${system};
           modules = [ ./home.nix ];
         };
 

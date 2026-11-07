@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
-with builtins;
-with lib; {
+{
   config = {
     wsl = {
       enable = true;
@@ -11,10 +10,8 @@ with lib; {
       usbip.enable = true;
     };
     nix = {
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
       settings = {
+        experimental-features = [ "nix-command" "flakes" ];
         trusted-users = [ "root" "ariel" ];
         auto-optimise-store = true;
       };
@@ -24,7 +21,7 @@ with lib; {
         enable = true;
         enableTCPIP = true;
         package = pkgs.postgresql_18;
-        authentication = pkgs.lib.mkOverride 18 ''
+        authentication = lib.mkForce ''
           #type database  DBuser  orgin-address   auth-method
           local all       all                     trust
           host  all       all     127.0.0.1/32    trust
@@ -68,8 +65,6 @@ with lib; {
     programs.dconf.enable = true;
     environment = {
       systemPackages = with pkgs; [
-        emacs30
-        coreutils
         wsl-open
         wget
         curl
@@ -84,12 +79,15 @@ with lib; {
         python3
         home-manager
         lsof
-        (pkgs.writeScriptBin "update-system" ''
-          nix flake update --flake ~/dotfiles/home-manager
-          sudo nixos-rebuild switch --flake ~/dotfiles/home-manager#cinnabar
-        '')
+        (pkgs.writeShellApplication {
+          name = "update-system";
+          text = ''
+            nix flake update --flake ~/dotfiles/home-manager
+            sudo nixos-rebuild switch --flake ~/dotfiles/home-manager#cinnabar
+          '';
+        })
       ];
-      variables = rec { BROWSER = "wsl-open"; };
+      variables = { BROWSER = "wsl-open"; };
     };
     system.stateVersion = "23.11";
     virtualisation.docker.enable = true;
