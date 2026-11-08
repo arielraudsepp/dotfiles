@@ -14,20 +14,72 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, nixos-wsl, ... }:
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      nixos-wsl,
+      ...
+    }:
     let
-      makeHome = system:
+      supportedSystems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      forEachSupportedSystem =
+        f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
+
+      overlay = final: prev: {
+        antigravity-cli = final.callPackage ./packages/antigravity-cli { };
+      };
+
+      makeHome =
+        system:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+            overlays = [ overlay ];
+          };
           modules = [ ./home.nix ];
         };
 
-    in {
+    in
+    {
+      overlays.default = overlay;
+
+      packages = forEachSupportedSystem (system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+            overlays = [ overlay ];
+          };
+        in
+        {
+          inherit (pkgs) antigravity-cli;
+          default = pkgs.antigravity-cli;
+        }
+      );
+
       homeConfigurations."ariel" = makeHome "aarch64-darwin";
       homeConfigurations."ariel@nixos" = makeHome "x86_64-linux";
       nixosConfigurations."cinnabar" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ nixos-wsl.nixosModules.wsl ./wsl.nix ];
+        modules = [
+          nixos-wsl.nixosModules.wsl
+          {
+            nixpkgs.overlays = [ overlay ];
+            nixpkgs.config.allowUnfree = true;
+          }
+          ./wsl.nix
+        ];
       };
     };
 }

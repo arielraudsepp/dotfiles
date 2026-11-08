@@ -16,6 +16,8 @@ in
   home.stateVersion = "23.05";
   home.enableNixpkgsReleaseCheck = false;
 
+  nixpkgs.config.allowUnfree = true;
+
   home.packages =
     with pkgs;
     [
@@ -41,7 +43,7 @@ in
       tetex
       gnumake
       unzip
-      antigravity
+      antigravity-cli
     ]
     ++ lib.optional (!stdenv.hostPlatform.isDarwin) gdb
     ++ [
@@ -58,6 +60,27 @@ in
         name = "hms";
         text = ''
           home-manager switch --flake ~/dotfiles/home-manager
+        '';
+      })
+      # Update antigravity-cli sources.json.
+      (writeShellApplication {
+        name = "update-antigravity-cli";
+        runtimeInputs = [
+          curl
+          jq
+        ];
+        text = ''
+          set -euo pipefail
+          DOTFILES_DIR="$HOME/dotfiles"
+          UPDATE_SCRIPT="$DOTFILES_DIR/home-manager/packages/antigravity-cli/update.sh"
+
+          if [ ! -f "$UPDATE_SCRIPT" ]; then
+            echo "Error: Could not find update.sh at $UPDATE_SCRIPT"
+            exit 1
+          fi
+
+          echo "Running antigravity-cli update script..."
+          "$UPDATE_SCRIPT"
         '';
       })
     ];
