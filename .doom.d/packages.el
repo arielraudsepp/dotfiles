@@ -25,6 +25,7 @@
 (package! geben)
 (package! ob-chatgpt-shell)
 (package! org-noter)
+
 ;;(package! pdf-tools :built-in 'prefer)
 
 (package! copilot
